@@ -5,7 +5,7 @@ import chartDown from "../../assets/chart-down.svg" ;
 
 import styles from "./TableCoin.module.css" ; 
 
-function TableCoin({coins , isLoading}) {
+function TableCoin({coins , isLoading , currency}) {
    
   return (
     <div className={styles.container} >
@@ -23,7 +23,7 @@ function TableCoin({coins , isLoading}) {
         </thead>
         <tbody>
           {coins.map((coin) => (
-             <TableRow coin = {coin} key={coin.id} /> 
+             <TableRow coin = {coin} key={coin.id} currency = {currency} /> 
           ))}
         </tbody>
       </table>
@@ -34,8 +34,18 @@ function TableCoin({coins , isLoading}) {
 
 export default TableCoin
 
-const TableRow = ({coin: {name , image , symbol , total_volume , current_price , price_change_percentage_24h : price_change}}) => {
-   
+const TableRow = ({coin , currency}) => {
+
+  const {name , image , symbol , total_volume , current_price , price_change_percentage_24h : price_change} = coin ; 
+
+  const currencySymbols  = {
+    usd: "$" , 
+    eur : "€" , 
+    jpy : "¥" 
+  } ; 
+
+  const currencySymbol = currencySymbols[currency] || ""; 
+
   return(
     <tr>
             <td>
@@ -45,9 +55,9 @@ const TableRow = ({coin: {name , image , symbol , total_volume , current_price ,
               </div>
             </td>
             <td>{name}</td>
-            <td>${current_price.toLocaleString()}</td>
+            <td>{currencySymbol}  {current_price.toLocaleString()}</td>
             <td className= {price_change > 0 ? styles.success : styles.error} >{typeof price_change === "number" ? `${price_change.toFixed(2)}%` : "N/A"}</td>
-            <td>{total_volume.toLocaleString()}</td> 
+            <td>{currencySymbol}  {total_volume.toLocaleString()}</td> 
             <td><img src={price_change > 0 ? chartUp : chartDown} alt={name} /></td>
       </tr>
   )
