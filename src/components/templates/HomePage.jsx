@@ -5,22 +5,26 @@ import Pagination from "../modules/Pagination.jsx";
 
 function HomePage() {
     const [coins , setCoins] = useState([]) ;
-    const [isLoading , setIsLoading ] = useState(true) ; 
+    const [isLoading , setIsLoading ] = useState(true) ;
+    const [page , setPage] = useState(1) ; 
 
-    useEffect(()=> { 
+    useEffect(()=> {
+       
+        setIsLoading(true) ; 
+
         const getData = async () => { 
-            const response = await fetch(getCoinList()) ; 
+            const response = await fetch(getCoinList(page)) ; 
             const json = await response.json() ; 
             setCoins(json) ; 
             setIsLoading(false) ;
         }
         getData() ; 
-    } , []) ; 
+    } , [page]) ; 
 
   return (
 
     <div>
-        <Pagination/>
+        <Pagination page = {page} setPage = {setPage} />
         <TableCoin coins = {coins} isLoading = {isLoading} />        
     </div>
 
