@@ -56,7 +56,7 @@ const TableRow = ({coin , currency}) => {
             </td>
             <td>{name}</td>
             <td>{currencySymbol}  {current_price.toLocaleString()}</td>
-            <td className= {price_change > 0 ? styles.success : styles.error} >{typeof price_change === "number" ? `${price_change.toFixed(2)}%` : "N/A"}</td>
+            <td className= {price_change > 0 ? styles.success : styles.error} >{typeof price_change === "number" ? `${price_change.toFixed(2)}  %` : "N/A"}</td>
             <td>{currencySymbol}  {total_volume.toLocaleString()}</td> 
             <td><img src={price_change > 0 ? chartUp : chartDown} alt={name} /></td>
       </tr>
