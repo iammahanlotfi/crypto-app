@@ -9,7 +9,7 @@ function HomePage() {
     const [page , setPage] = useState(1) ; 
 
     useEffect(()=> {
-       
+
         setIsLoading(true) ; 
 
         const getData = async () => { 
@@ -24,8 +24,8 @@ function HomePage() {
   return (
 
     <div>
+        <TableCoin coins = {coins} isLoading = {isLoading} /> 
         <Pagination page = {page} setPage = {setPage} />
-        <TableCoin coins = {coins} isLoading = {isLoading} />        
     </div>
 
   )
