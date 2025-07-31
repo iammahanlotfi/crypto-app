@@ -6,17 +6,31 @@ function Search({currency , setCurrency}) {
     const [coins , setCoins] = useState([])
     useEffect(() => {
 
+        const controller = new AbortController() ; 
+
         if(!text) return ; 
         
         const search = async () => { 
-            const response = await fetch(searchCoin(text)) ; 
-            const json = await response.json() ; 
-            console.log(json) ; 
-            if(json.coins) { 
-            setCoins[json.coins] ;
+            try {
+                const response = await fetch(searchCoin(text) , {signal : controller.signal}) ; 
+                const json = await response.json() ; 
+                console.log(json) ; 
+                if(json.coins) {
+                    setCoins(json.coins) ; 
+                } else {
+                    alert(json.status.error_message) ; 
+                } 
+            }
+            catch(error) { 
+                if(error.name !== "AbortError") { 
+                    alert(error.message) ; 
+                }
             }
         } 
-        search() ; 
+        search() ;
+        
+        return () => controller.abort() ; 
+
     } , [text] )
   return (
     <div>
