@@ -15,10 +15,16 @@ function HomePage() {
         setIsLoading(true) ; 
 
         const getData = async () => { 
-            const response = await fetch(getCoinList(page , currency)) ; 
-            const json = await response.json() ; 
-            setCoins(json) ; 
-            setIsLoading(false) ;
+          try{
+              const response = await fetch(getCoinList(page , currency)) ; 
+              const json = await response.json() ; 
+              setCoins(json) ; 
+              setIsLoading(false) ;
+          }
+
+          catch(error) { 
+            alert(error.message) ;
+          }
         }
         getData() ; 
     } , [page , currency]) ; 
