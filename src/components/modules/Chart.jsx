@@ -4,13 +4,40 @@ import styles from "./Chart.module.css"
 import { CartesianGrid, LineChart, ResponsiveContainer , Line, YAxis, XAxis, Legend, Tooltip } from "recharts";
 function Chart({chart , setChart}) {
     const [type , setType] = useState("prices") ; 
-     
+    
   return (
     <div className={styles.container} >
         <span onClick={() => setChart(null)} className={styles.cross} >X</span>
         <div className={styles.chart} >
+            <div className={styles.name} >
+                <img src={chart.coin.image} alt={chart.coin.name} />
+                <p>{chart.coin.name}</p>
+            </div>
         <div className={styles.graph}>
             <ChartComponent data={convertData(chart , type)} type={type} />
+        </div>
+        <div className={styles.types} >
+
+        <button>Prices</button>
+        <button>Market Caps</button>
+        <button>Total Volumes</button>
+
+        </div>
+        <div className={styles.details} >
+            <div>
+                <p>Price:</p>
+                <span>$ {chart.coin.current_price}</span>
+            </div>
+
+            <div>
+                <p>ATH:</p>
+                <span>$ {chart.coin.ath}</span>
+            </div>
+
+            <div>
+                <p>Market Cap:</p>
+                <span>{chart.coin.market_cap}</span>
+            </div>
         </div>
         </div>
     </div>
@@ -20,6 +47,7 @@ function Chart({chart , setChart}) {
 export default Chart;
 
 const ChartComponent = ({data , type}) =>{ 
+    
     return (
         <ResponsiveContainer width="100%" height="100%" >
             <LineChart width={400} height={400} data={data} >

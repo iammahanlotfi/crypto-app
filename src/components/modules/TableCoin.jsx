@@ -49,7 +49,10 @@ const TableRow = ({coin , currency , setChart}) => {
     try { 
       const response = await fetch(marketChart(id)) ; 
       const json = await response.json() ; 
-      setChart(json) ; 
+      
+      setChart({...json , coin}) ; 
+
+
     }
     catch(error) { 
       setChart(null) ; 
