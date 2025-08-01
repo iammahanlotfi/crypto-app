@@ -1,8 +1,11 @@
 import HomePage from "./components/templates/HomePage.jsx"
+import Layout from "./layouts/Layout.jsx"
 
 function App() {
   return (
-    <HomePage/>
+    <Layout> 
+      <HomePage/>
+    </Layout>
   )
 }
 
