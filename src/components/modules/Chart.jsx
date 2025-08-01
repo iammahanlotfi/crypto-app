@@ -3,7 +3,14 @@ import { convertData } from "../../helpers/convertData.js"
 import styles from "./Chart.module.css"
 import { CartesianGrid, LineChart, ResponsiveContainer , Line, YAxis, XAxis, Legend, Tooltip } from "recharts";
 function Chart({chart , setChart}) {
-    const [type , setType] = useState("prices") ; 
+    const [type , setType] = useState("prices") ;
+    
+    const typeHandler = (event) => { 
+        if(event.target.tagName === "BUTTON") { 
+            const type = event.target.innerText.toLowerCase().replace(" " , "_") ; 
+            setType(type) ; 
+        }
+    }
     
   return (
     <div className={styles.container} >
@@ -16,11 +23,11 @@ function Chart({chart , setChart}) {
         <div className={styles.graph}>
             <ChartComponent data={convertData(chart , type)} type={type} />
         </div>
-        <div className={styles.types} >
+        <div className={styles.types} onClick={typeHandler} >
 
-        <button>Prices</button>
-        <button>Market Caps</button>
-        <button>Total Volumes</button>
+        <button className={type==="prices" ? styles.selected : null} >Prices</button>
+        <button className={type==="market_caps" ?  styles.selected : null} >Market Caps</button>
+        <button className={type==="total_volumes"  ? styles.selected : null} >Total Volumes</button>
 
         </div>
         <div className={styles.details} >
